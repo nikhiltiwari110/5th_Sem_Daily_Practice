@@ -10,6 +10,11 @@ class Solution {
                 }
             }
         }
-        return Arrays.stream(dp).max().getAsInt();
+        int max = 1;
+        for(int k = 0; k < dp.length; k++){
+            max = Math.max(max,dp[k]);
+        }
+        return max;
+        //return Arrays.stream(dp).max().getAsInt();
     }
 }
