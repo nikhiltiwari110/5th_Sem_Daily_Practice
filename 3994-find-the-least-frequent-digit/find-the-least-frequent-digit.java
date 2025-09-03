@@ -6,7 +6,6 @@ class Solution {
             arr[rem]++;
             n = n / 10;
         }
-        System.out.println(Arrays.toString(arr));
         int min = Integer.MAX_VALUE;
         int idx = 0;
         for(int i = 0; i < arr.length; i++){
