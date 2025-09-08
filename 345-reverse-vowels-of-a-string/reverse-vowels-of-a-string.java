@@ -1,20 +1,19 @@
 class Solution {
     public String reverseVowels(String s) {
-        List<Character> ll = new ArrayList<>();
+        String vowels = "";
         for(int i = 0; i < s.length(); i++){
             char ch = s.charAt(i);
             if(isvowel(ch)){
-                ll.add(ch);
+                vowels+=ch;
             }
         }
-        Collections.reverse(ll);
         String str = "";
-        int idx = 0;
+        int idx = vowels.length()-1;
         for(int i = 0; i < s.length(); i++){
            char ch = s.charAt(i);
             if(isvowel(ch)){
-                str += ll.get(idx);
-                idx++;
+                str += vowels.charAt(idx);
+                idx--;
             } else{
                 str += s.charAt(i);
             }
