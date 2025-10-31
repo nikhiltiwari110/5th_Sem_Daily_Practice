@@ -10,20 +10,12 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-       //find size of the linkedlist
-       int size = 0;
-       ListNode temp = head;
-       while(temp!=null){
-        size++;
-        temp = temp.next;
-       }
-       int index = size/2;
-       int c = 0;
-       ListNode nn = head;
-       while(c<index){
-        nn = nn.next;
-        c++;
-       }
-       return nn; 
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast!=null&&fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 }
