@@ -1,22 +1,17 @@
 class Solution {
-    public int res;
     public int rob(int[] nums) {
+        if(nums.length==1){
+            return nums[0];
+        }
+        //Bottom-Up Approach
         int [] dp = new int[nums.length];
-        Arrays.fill(dp,-1);
-        return rec(0,nums,dp);
-    }
-    public int rec(int index,int [] nums,int [] dp){
-        if(index>=nums.length){
-            return res;
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0],nums[1]);
+        for(int i = 2; i < nums.length; i++){
+            dp[i] = Math.max(nums[i] + dp[i-2],dp[i-1]);
         }
-        if(dp[index]!=-1){
-            return dp[index];
-        }
-        //pick
-        int sum2=0, sum1=0;
-        sum1 += nums[index] + rec(index+2,nums,dp);
-        //unpick
-        sum2 += rec(index+1,nums,dp);
-        return dp[index] = Math.max(sum1,sum2);
+        return dp[dp.length-1];
+       
     }
+    
 }
