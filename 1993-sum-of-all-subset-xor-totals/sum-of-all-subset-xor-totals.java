@@ -1,9 +1,14 @@
 class Solution {
     public int subsetXORSum(int[] nums) {
-        int result = 0;
-        for(int el : nums){
-            result = result | el;
+        return subset(nums,0,0);
+    }
+    public int subset(int [] nums, int i, int xor){
+        if(i == nums.length){
+            return xor;
         }
-        return result << nums.length-1;
+        int include = subset(nums,i+1,nums[i]^xor);
+        int exclude = subset(nums,i+1,xor);
+
+        return include + exclude;
     }
 }
