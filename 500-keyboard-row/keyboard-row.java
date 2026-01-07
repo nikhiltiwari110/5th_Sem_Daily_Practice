@@ -21,16 +21,18 @@ class Solution {
         }
         for(String st:words){
             String str = st.toLowerCase();
-            int v = 0;
+            char ch = str.charAt(0);
+            HashSet<Character> current;
             boolean flag = false;
-            for(int i = 0; i < str.length(); i++){
-                if( v!=1 && v!= 2 && s1.contains(str.charAt(i)) ){
-                    v = -1;
-                }else if( v!= 2 && v!= -1 && s2.contains(str.charAt(i)) ){
-                    v = 1;
-                }else if( v!=1 && v!= -1 && s3.contains(str.charAt(i)) ){
-                    v = 2;
-                }else{
+            if(s1.contains(ch)){
+                current = s1;
+            }else if(s2.contains(ch)){
+                current = s2;
+            }else{
+                current = s3;
+            }
+            for(int i = 1; i < str.length(); i++){
+                if(!current.contains(str.charAt(i))){
                     flag = true;
                     break;
                 }
