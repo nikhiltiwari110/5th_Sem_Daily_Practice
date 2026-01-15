@@ -1,0 +1,24 @@
+class Solution {
+    public int countPrimes(int n) {
+        if(n < 2){
+            return 0;
+        }
+        boolean [] prime = new boolean[n];
+        prime[0] = true; //not prime
+        prime[1] = true; //not prime
+        for(int i = 2; i * i <= n; i++){
+            if(prime[i] == false){
+                for(int j = 2; i * j < n; j++){
+                    prime[i*j] = true;
+                }
+            }
+        }
+        int c = 0;
+        for(int i = 0; i < n; i++){
+            if(prime[i] == false){
+                c++;
+            }
+        }
+        return c;
+    }
+}
