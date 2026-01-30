@@ -8,14 +8,10 @@ class Solution {
         }
         int idx = 0;
         while(q.size()>1){
-            int in_ans = q.poll();
-            ans[in_ans] = deck[idx++];
-            int r = q.poll();
-            q.add(r);
+            ans[q.poll()] = deck[idx++];
+            q.add(q.poll());
         }
-        while(!q.isEmpty()){
-            ans[q.poll()] = deck[idx];
-        }
+        ans[q.poll()] = deck[idx];
         return ans;
     }
 }
