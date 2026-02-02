@@ -10,17 +10,18 @@
  */
 class Solution {
     public int getDecimalValue(ListNode head) {
-        String num = "";
+        int sum = 0;
+        int len = 0;
         ListNode temp = head;
         while(temp!=null){
-            num+=temp.val;
+            len++;
             temp = temp.next;
         }
-        int sum = 0;
-        int pow = num.length()-1;
-        for(int i = 0; i < num.length();i++){
-            int x = num.charAt(i) - '0';
-            sum += x * Math.pow(2,pow);
+        temp = head;
+        int pow = len-1;
+        while(temp!=null){
+            sum += temp.val * Math.pow(2,pow);
+            temp = temp.next;
             pow--;
         }
         return sum;
