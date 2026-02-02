@@ -10,10 +10,10 @@
  */
 class Solution {
     public int getDecimalValue(ListNode head) {
-        StringBuilder num = new StringBuilder();
+        String num = "";
         ListNode temp = head;
         while(temp!=null){
-            num.append(temp.val);
+            num+=temp.val;
             temp = temp.next;
         }
         int sum = 0;
