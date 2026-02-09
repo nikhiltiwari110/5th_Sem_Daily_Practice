@@ -7,24 +7,22 @@ class Solution {
             int y = a[1];
             int lx = find(x);
             int ly = find(y);
-            int k = 0;
-            int c = 0;
-            while(lx>ly){
+            int common = 1;
+            HashSet<Integer> ancestors = new HashSet<>();
+            while(x>0){
+               ancestors.add(x);
                 x = x/2;
-                lx--;
-                c++;
             }
-            while(ly>lx){
+            while(y>0){
+                if(ancestors.contains(y)){
+                    common = y;
+                    break;
+                }
+                ancestors.add(y);
                 y = y/2;
-                ly--;
-                c++;
             }
-            while(x!=y){
-                x = x/2;
-                y = y/2;
-                k++;
-            }
-            ans[idx++] = 1+c+2*k;
+            int lc = find(common);
+            ans[idx++] = 1+(lx-lc)+(ly-lc);
         }
         return ans;
     }
