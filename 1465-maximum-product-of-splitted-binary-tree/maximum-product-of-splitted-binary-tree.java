@@ -24,19 +24,37 @@ class Solution {
         return (int)(product%1000000007);
     }
     public long sum(TreeNode root){
-        if(root == null) return 0;
-        long l = sum(root.left);
-        long r = sum(root.right);
+        if(root.left==null && root.right==null){
+            return root.val;
+        }
+        long l = 0;
+        if(root.left!=null){
+         l = sum(root.left);
+        }
+        long r = 0;
+        if(root.right!=null){
+        r = sum(root.right);
+        }
+
         return l + r + root.val;
 
     }
     public long sum2(TreeNode root){
-        if(root == null) return 0;
-        long l = sum2(root.left);
-        long r = sum2(root.right);
-        long subtreesum =  l + r + root.val;
-        long p = subtreesum*(totalsum-subtreesum);
-        product = Math.max(p,product);
-        return subtreesum;
+        if(root.left==null && root.right==null){
+            return root.val;
+        }
+        long l = 0;
+        if(root.left!=null){
+         l = sum2(root.left);
+        }
+        long r = 0;
+        if(root.right!=null){
+        r = sum2(root.right);
+        }
+        long lp = l*(totalsum-l);
+        long rp = r * (totalsum-r);
+        product = Math.max(product,Math.max(lp,rp));
+        return l + r + root.val;
+
     }
 }
