@@ -15,20 +15,16 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return issym(root.left,root.right);
+        return isrec(root.left,root.right);
     }
-    public boolean issym(TreeNode root1,TreeNode root2){
-        if(root1==null&&root2==null){
+    public boolean isrec(TreeNode root1, TreeNode root2){
+        if(root1==null && root2 == null){
             return true;
         }
-        if(root1==null||root2==null){
-            return false;
-        }
-        if(root1.val!=root2.val){
-            return false;
-        }
-        boolean l = issym(root1.left,root2.right);
-        boolean r = issym(root1.right,root2.left);
-        return l && r;
+        if(root1 == null || root2 == null) return false;
+        if(root1.val != root2.val) return false;
+        boolean l = isrec(root1.left,root2.right);
+        boolean r = isrec(root1.right,root2.left);
+        return l&r;
     }
 }
