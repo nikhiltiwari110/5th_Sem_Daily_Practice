@@ -8,18 +8,9 @@ class Solution {
             graph.get(p[0]).add(p[1]);
         }
         List<Boolean> ans = new ArrayList<>();
-        for(int [] q : queries){
-            if(dfs(q[0],q[1],graph)){
-                ans.add(true);
-            }else{
-                ans.add(false);
-            }
-        }
-        return ans;
-    }
-    public boolean dfs(int s,int d,List<List<Integer>> graph){
+        for(int i = 0; i < numCourses;i++){
         Queue<Integer> q = new LinkedList<>();
-        q.add(s);
+        q.add(i);
         HashSet<Integer> visited = new HashSet<>();
         while(!q.isEmpty()){
             int rv = q.poll();
@@ -27,15 +18,21 @@ class Solution {
                 continue;
             }
             visited.add(rv);
-            if(rv==d){
-                return true;
-            }
+            graph.get(i).add(rv);
             for(int el : graph.get(rv)){
                 if(!visited.contains(el)){
                     q.add(el);
                 }
             }
         }
-        return false;
+        }
+        for(int [] q : queries){
+            if(graph.get(q[0]).contains(q[1])){
+                ans.add(true);
+            }else{
+                ans.add(false);
+            }
+        }
+        return ans;
     }
 }
