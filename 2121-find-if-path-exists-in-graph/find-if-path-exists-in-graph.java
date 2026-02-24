@@ -1,37 +1,32 @@
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        ArrayList<ArrayList<Integer>> ll = new ArrayList<>();
+        List<List<Integer>> map = new ArrayList<>();
         for(int i = 0; i < n; i++){
-            ll.add(new ArrayList<>());
+            map.add(new ArrayList<>());
         }
-        for(int i = 0; i < edges.length; i++){
-            ll.get(edges[i][0]).add(edges[i][1]);
-            ll.get(edges[i][1]).add(edges[i][0]);
+        for(int [] e : edges){
+            map.get(e[0]).add(e[1]);
+            map.get(e[1]).add(e[0]);
         }
-
         HashSet<Integer> visited = new HashSet<>();
-        Stack<Integer> st = new Stack<>();
-        st.push(source);
-        while(!st.isEmpty()){
-            //remove
-            int rv = st.pop();
-            //ignore
+        Queue<Integer> q = new LinkedList<>();
+        q.add(source);
+        while(!q.isEmpty()){
+            int rv = q.poll();
             if(visited.contains(rv)){
                 continue;
             }
-            //mark visited
             visited.add(rv);
-            //self work
             if(rv==destination){
                 return true;
             }
-            //add nbrs
-            for(int el : ll.get(rv)){
+            for(int el:map.get(rv)){
                 if(!visited.contains(el)){
-                    st.push(el);
+                    q.add(el);
                 }
             }
         }
         return false;
+
     }
 }
