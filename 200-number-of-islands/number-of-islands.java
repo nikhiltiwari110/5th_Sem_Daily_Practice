@@ -1,30 +1,27 @@
 class Solution {
     public int numIslands(char[][] grid) {
+       int m = grid.length;
+       int n = grid[0].length;
+
+       boolean [][] arr = new boolean[m][n];
         int c = 0;
-        int [][] visited = new int [grid.length][grid[0].length];
-        for(int i = 0; i < grid.length; i++){
-            for(int j = 0; j < grid[i].length; j++){
-                if(visited[i][j]!=1 && grid[i][j] == '1'){
-                    // visited[i][j] = 1;
-                    dfs(i,j,grid,visited);
-                    c++;
-                }
+       for(int i = 0; i < m; i++){
+        for(int j = 0; j < n; j++){
+            if(!arr[i][j] && grid[i][j] == '1'){
+                check(grid,i,j,arr);
+                c++;
             }
         }
-        return c;   
+       }
+        return c;
     }
-    public void dfs(int r,int c,char [][] grid, int [][] visited){
-        if(r<0 || c<0 || r>=grid.length || c >= grid[0].length || visited[r][c] == 1 || grid[r][c] == '0'){
-            return;
-        }
-        visited[r][c] = 1;
-        //up
-        dfs(r-1,c,grid,visited);
-        //down
-        dfs(r+1,c,grid,visited);
-        //left
-        dfs(r,c-1,grid,visited);
-        //right
-        dfs(r,c+1,grid,visited);
+    public void check(char [][] grid,int r, int c , boolean [][] arr){
+        if(r<0 || c < 0 || r == grid.length || c == grid[0].length||grid[r][c]=='0' || arr[r][c]) return;
+        arr[r][c] = true;
+        check(grid,r+1,c,arr);
+        check(grid,r,c+1,arr);
+        check(grid,r,c-1,arr);
+        check(grid,r-1,c,arr);
+        
     }
 }
