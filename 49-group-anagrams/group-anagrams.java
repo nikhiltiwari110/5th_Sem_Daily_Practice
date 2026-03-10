@@ -1,29 +1,34 @@
 class Solution {
-    public List<List<String>> groupAnagrams(String[] arr) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        for (int i = 0; i < arr.length; i++) {
-            String key = GetKey(arr[i]);
-            if (!map.containsKey(key)){
-                map.put(key, new ArrayList<>());
+    public List<List<String>> groupAnagrams(String[] strs) {
+
+
+        HashMap<String,List<String>> map = new HashMap<>();
+        List<List<String>> res = new ArrayList<>();
+        for(int i = 0; i < strs.length; i++){
+            String str = strs[i];
+            String [] arr = str.split("");
+            Arrays.sort(arr);
+            StringBuilder sb = new StringBuilder("");
+            for(String ch : arr){
+                sb.append(ch);
             }
-            map.get(key).add(arr[i]);
+            String sbc = sb.toString();
+            if(!map.containsKey(sbc)){
+                List<String> ll = new ArrayList<>();
+                ll.add(str);
+                map.put(sbc,ll);
+            }else{
+                map.get(sbc).add(str);
+            }
         }
-        List<List<String>> ll = new ArrayList<>();
-        for (String key:map.keySet()){
-            ll.add(map.get(key));
+        for(String s : map.keySet()){
+            List<String> rs = new ArrayList<>();
+            for(String se : map.get(s)){
+                rs.add(se);
+            }
+            res.add(rs);
         }
-        return ll;
-    }
-    public static String GetKey(String s){
-        int [] freq = new int[26];
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-            freq[ch-'a']++;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < freq.length; i++) {
-            sb.append(freq[i]+" ");
-        }
-        return sb.toString();
+        // System.out.println(map);
+        return res;
     }
 }
