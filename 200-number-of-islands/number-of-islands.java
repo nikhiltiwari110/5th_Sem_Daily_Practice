@@ -1,27 +1,35 @@
 class Solution {
     public int numIslands(char[][] grid) {
-       int m = grid.length;
-       int n = grid[0].length;
 
-       boolean [][] arr = new boolean[m][n];
+        int n = grid.length;
+        int m = grid[0].length;
         int c = 0;
-       for(int i = 0; i < m; i++){
-        for(int j = 0; j < n; j++){
-            if(!arr[i][j] && grid[i][j] == '1'){
-                check(grid,i,j,arr);
-                c++;
+        boolean [][] valid = new boolean[n][m];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j]=='1'&&valid[i][j]==false){
+                    // valid[i][j] = true;
+                    makeit(grid,valid,i,j);
+                    c++;
+                }
             }
         }
-       }
         return c;
     }
-    public void check(char [][] grid,int r, int c , boolean [][] arr){
-        if(r<0 || c < 0 || r == grid.length || c == grid[0].length||grid[r][c]=='0' || arr[r][c]) return;
-        arr[r][c] = true;
-        check(grid,r+1,c,arr);
-        check(grid,r,c+1,arr);
-        check(grid,r,c-1,arr);
-        check(grid,r-1,c,arr);
-        
+    public void makeit(char[][] grid,boolean [][] valid, int r, int c){
+        if(r<0||r>=grid.length || c<0 || c >= grid[0].length || grid[r][c]=='0' || valid[r][c]){
+            return;
+        }
+       valid[r][c] = true; 
+       int []rows = {1,-1,0,0};
+       int []col = {0,0,1,-1};
+       for(int i = 0; i < 4; i ++){
+        makeit(grid,valid,r+rows[i],c+col[i]);
+       } 
+        // makeit(grid,valid,r+1,c);
+        // makeit(grid,valid,r-1,c);
+        // makeit(grid,valid,r,c+1);
+        // makeit(grid,valid,r,c-1);
+
     }
 }
