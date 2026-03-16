@@ -1,23 +1,18 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int [] suffix = new int[prices.length];
-        int max = prices[prices.length-1];
-        for(int i = prices.length-2;i>=0;i--){
-            if(prices[i]>max){
-                max = prices[i];
-                suffix[i] = -1;
-            }else{
-                suffix[i] = max;
-            }
-        }
-        //find profit for all elements;
-        int profit = 0;
-        for(int i = 0; i < prices.length; i++){
-            if(suffix[i]!=-1){
-                int dif = suffix[i] - prices[i];
-                profit = Math.max(dif,profit);
-            }
-        }
-        return profit;
+     int maxprofit = 0;
+     int n = prices.length;
+     int max = prices[n-1];
+     int [] maxsuffix = new int[n];
+     for(int i = n-1; i >=0; i--){
+        maxsuffix[i] = Math.max(prices[i],max);
+        max = Math.max(prices[i],max);
+     }
+     int profit = 0;
+     for(int i = 0; i < n; i++){
+        profit = maxsuffix[i]-prices[i];
+        maxprofit = Math.max(maxprofit,profit);
+     }
+     return maxprofit;    
     }
 }
