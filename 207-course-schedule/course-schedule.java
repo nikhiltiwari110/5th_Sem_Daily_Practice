@@ -1,53 +1,34 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int n = numCourses;
-        if(prerequisites.length == 0){
-            return true;
+        List<List<Integer>> ll = new ArrayList<>();
+        for(int i = 0; i < numCourses; i++){
+            ll.add(new ArrayList<>());
         }
-        int [] in = new int[n];
-        for(int [] e : prerequisites){
-            in[e[0]]++;
-        }
-        List<List<Integer>> graph = new ArrayList<>();
-        for(int i = 0; i < n; i++){
-            graph.add(new ArrayList<>());
-        }
-        for(int [] e: prerequisites){
-            // ll.get(e[0]).add(e[1]);
-            graph.get(e[1]).add(e[0]);
+        int [] in = new int[numCourses];
+        for(int []p : prerequisites){
+            int u = p[0];
+            int v = p[1];
+            in[u]++;
+            ll.get(v).add(u);
         }
         Queue<Integer> q = new LinkedList<>();
-        for(int i = 0; i < n; i++){
-            if(in[i] == 0){
+
+        for(int i = 0; i < numCourses; i++){
+            if(in[i]==0){
                 q.add(i);
             }
         }
-        if(q.isEmpty()){
-            return false;
-        }
-        List<Integer> a = new ArrayList<>();
+        int c = 0;
         while(!q.isEmpty()){
-            //remove;
-            int rv = q.poll();
-            //ignore
-            if(in[rv]<0){
-                continue;
-            }
-            a.add(rv);
-            in[rv] = -1;
-            for(int el : graph.get(rv)){
+            int current = q.poll();
+            c++;
+            for(int el:ll.get(current)){
                 in[el]--;
-            }
-            for(int i = 0 ; i < n; i++){
-                if(in[i]==0){
-                    q.add(i);
+                if(in[el]==0){
+                    q.add(el);
                 }
             }
         }
-        if(a.size()==n){
-            return true;
-        }else{
-            return false;
-        }
+        return c == numCourses;
     }
 }
