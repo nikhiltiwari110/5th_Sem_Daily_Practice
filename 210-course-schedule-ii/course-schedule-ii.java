@@ -1,58 +1,39 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int n = numCourses;//n =2
-        int [] ans = new int[n]; //
-        int id = 0;
-        ArrayList<Integer> ans1 = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        for(int i = 0; i < n; i++){
-            graph.add(new ArrayList<>());
+     List<List<Integer>> ll = new ArrayList<>();
+     for(int i = 0; i < numCourses; i++){
+        ll.add(new ArrayList<>());
+     }
+     int [] ind = new int[numCourses]; 
+      for(int [] p : prerequisites){
+        int u = p[0];
+        int v = p[1];
+        ll.get(v).add(u);
+        ind[u]++;
+     }
+     List<Integer> ans = new ArrayList<>();
+     Queue<Integer> q = new LinkedList<>();
+     for(int i = 0; i < numCourses; i++){
+        if(ind[i]==0){
+            q.add(i);
         }
-
-        for(int [] e : prerequisites){
-            graph.get(e[1]).add(e[0]);
-        }
-
-        int [] in = new int[n];
-        for(int [] e : prerequisites){
-            in[e[0]]++;
-        }
-        Queue<Integer> q = new LinkedList<>();
-        for(int i = 0; i < n;i++){
-            if(in[i] == 0){
-                q.add(i);
+     }
+     while(!q.isEmpty()){
+        int ci = q.poll();
+        ans.add(ci);
+        for(int el : ll.get(ci)){
+            ind[el]--;
+            if(ind[el]==0){
+                q.add(el);
             }
         }
-        if(q.isEmpty()){
-            return new int[0];
-        }
-        while(!q.isEmpty()){
-            //remove
-            int r = q.poll();
-            //ignore
-            if(in[r]==-1){
-                continue;
+     }
+        if(ans.size()==numCourses) {
+            int res[] = new int[ans.size()];
+            for(int i = 0; i < ans.size();i++){
+                res[i] = ans.get(i);
             }
-            //mark visited
-            ans1.add(r);
-            in[r] = -1;
-            //self work 
-            ans[id++] = r;
-            //decrese neighbours indegree
-            for(int el : graph.get(r)){
-                in[el]--;
-            }
-            for(int i = 0; i < n; i++){
-                if(in[i]==0){
-                    q.add(i);
-                }
-            }
-        }
-        if(ans1.size()==n){
-            return ans;        
-        }else{
-            return new int [0];
-        }
-
+            return res;
+        }   else return new int[0];
     }
 }
