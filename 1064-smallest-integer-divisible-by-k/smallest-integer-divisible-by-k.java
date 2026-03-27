@@ -1,12 +1,18 @@
 class Solution {
-    public int smallestRepunitDivByK(int K) {
-        int remainder = 0;
-        for (int length_N = 1; length_N <= K; length_N++) {
-            remainder = (remainder * 10 + 1) % K;
-            if (remainder == 0) {
-                return length_N;
+    public int smallestRepunitDivByK(int k){
+        HashSet<Integer> set = new HashSet<>();
+        int n = 11;
+        if(k==1) return 1;
+        int c = 2;
+        while(n%k!=0){
+            int rem = n % k;
+            if(set.contains(rem)){
+                return -1;
             }
+            set.add(rem);
+            n = rem*10 + 1;
+            c++;
         }
-        return -1;
+        return c;
     }
 }
