@@ -1,14 +1,17 @@
 class Solution {
     public boolean isPowerOfTwo(int n) {
-     if(n==1){
-        return true;
-     }
-
-    if(n%2!=0 || n == 0){
-        return false;
-    }
-    
-    return isPowerOfTwo(n/2);
-    
+        boolean flag = false;
+        while(n>0){
+            if(flag){
+                return false;
+            }
+            int rem = n % 2;
+            if(rem==1){
+                flag = true;
+            }
+            n = n >> 1; // right shift
+            //System.out.println(n);
+        }
+        return flag;
     }
 }
